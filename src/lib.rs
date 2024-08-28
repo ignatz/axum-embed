@@ -435,6 +435,9 @@ impl<E: RustEmbed, T> Future for ServeFuture<E, T> {
 
         // build response and set headers
         let mut response_builder = Response::builder()
+            .header(http::header::CACHE_CONTROL, "public")
+            .header(http::header::CACHE_CONTROL, "max-age=604800")
+            .header(http::header::CACHE_CONTROL, "immutable")
             .header(
                 http::header::CONTENT_TYPE,
                 mime_guess::from_path(path.as_ref())
